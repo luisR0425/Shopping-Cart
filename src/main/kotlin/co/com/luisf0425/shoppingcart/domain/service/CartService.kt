@@ -1,7 +1,7 @@
 package co.com.luisf0425.shoppingcart.domain.service
 
+import co.com.luisf0425.shoppingcart.domain.dto.Cart
 import co.com.luisf0425.shoppingcart.domain.repository.ICartRepository
-import co.com.luisf0425.shoppingcart.persistence.entity.Cart
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -15,11 +15,15 @@ class CartService {
         return iCartRepository.save(cart)
     }
 
-    fun deleteProductCart(cartId: Int, productID: Int) {
-        iCartRepository.deleteProductCart(cartId, productID)
+    fun deleteProductCart(cartId: Int, productId: Int) {
+        iCartRepository.deleteProductCart(cartId, productId)
     }
 
     fun update(cart: Cart): Cart {
         return iCartRepository.update(cart)
+    }
+
+    fun updateState(cartId: Int) {
+        return iCartRepository.updateState(cartId)
     }
 }

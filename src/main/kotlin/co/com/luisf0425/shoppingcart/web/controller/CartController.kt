@@ -1,7 +1,7 @@
 package co.com.luisf0425.shoppingcart.web.controller
 
+import co.com.luisf0425.shoppingcart.domain.dto.Cart
 import co.com.luisf0425.shoppingcart.domain.service.CartService
-import co.com.luisf0425.shoppingcart.persistence.entity.Cart
 import io.swagger.annotations.ApiOperation
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -18,12 +18,19 @@ class CartController {
     @PostMapping("/save")
     fun save(@RequestBody cart: Cart) = ResponseEntity(cartService.save(cart), HttpStatus.OK)
 
+    @ApiOperation("Checkout, solo va a modificar el status a completed")
+    @PostMapping("/checkout/{cartId}")
+    fun checkout(@PathVariable cartId: Int) = ResponseEntity(cartService.updateState(cartId), HttpStatus.OK)
+
     @ApiOperation("Modificar productos al carro")
     @PostMapping("/update")
-    fun update(@RequestBody cart: Cart) = ResponseEntity(cartService.update(cart), HttpStatus.OK)
+    fun update(@RequestBody cart: Cart): ResponseEntity<String>  {
+        cartService.update(cart)
+        return ResponseEntity(HttpStatus.OK)
+    }
 
-    @DeleteMapping("/delete/{idCart}/{idProduct}")
-    fun deleteProductCart(@PathVariable idCart: Int, @PathVariable idProduct: Int) {
-        cartService.deleteProductCart(idCart, idProduct)
+    @DeleteMapping("/delete/{cartId}/{productId}")
+    fun deleteProductCart(@PathVariable cartId: Int, @PathVariable productId: Int) {
+        cartService.deleteProductCart(cartId, productId)
     }
 }

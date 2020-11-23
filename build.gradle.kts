@@ -8,6 +8,7 @@ plugins {
 	kotlin("jvm") version "1.4.10"
 	kotlin("plugin.spring") version "1.4.10"
 	kotlin("plugin.serialization") version "1.4.10"
+	kotlin("kapt") version "1.4.10"
 }
 
 group = "co.com.luisf0425"
@@ -28,6 +29,9 @@ dependencies {
 	implementation("io.springfox:springfox-swagger2:2.9.2")
 	implementation("io.springfox:springfox-swagger-ui:2.9.2")
 	implementation("javax:javaee-api:8.0.1")
+	implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.4.20")
+	api("org.mapstruct:mapstruct:1.4.1.Final")
+	kapt("org.mapstruct:mapstruct-processor:1.4.1.Final")
 	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
