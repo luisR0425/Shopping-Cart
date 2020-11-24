@@ -1,7 +1,7 @@
 package co.com.luisf0425.shoppingcart.web.controller
 
+import co.com.luisf0425.shoppingcart.domain.dto.Product
 import co.com.luisf0425.shoppingcart.domain.service.ProductService
-import co.com.luisf0425.shoppingcart.persistence.entity.Products
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
 import org.springframework.beans.factory.annotation.Autowired
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("api/prodcuts")
+@RequestMapping("api/product")
 class ProductController {
 
     @Autowired
@@ -21,6 +21,6 @@ class ProductController {
     @GetMapping("/all")
     @ApiOperation("Lista de productos")
     @ApiResponse(code = 200, message = "OK")
-    fun getAllProducts() : ResponseEntity<Iterable<Products>> =
+    fun getAllProducts() : ResponseEntity<Iterable<Product>> =
             ResponseEntity(productService.getAllProducts(), HttpStatus.OK)
 }

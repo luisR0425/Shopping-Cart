@@ -16,7 +16,7 @@ interface ProductMapper {
         Mapping(source = "description", target = "description")
     )
     fun toProductDto(products: Products): Product
-    fun toProductListDto(productsList: MutableList<Products>?): MutableList<Product>?
+    fun toProductListDto(productsList: Iterable<Products>): Iterable<Product>
 
     @InheritInverseConfiguration
     fun toProducts(product: Product): Products

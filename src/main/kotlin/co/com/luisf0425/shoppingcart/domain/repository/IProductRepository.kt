@@ -1,7 +1,7 @@
 package co.com.luisf0425.shoppingcart.domain.repository
 
-import co.com.luisf0425.shoppingcart.persistence.entity.Products
+import co.com.luisf0425.shoppingcart.domain.dto.Product
 
 interface IProductRepository {
-    fun getAllProducts() : Iterable<Products>
+    fun getAllProducts() : Iterable<Product>
 }
