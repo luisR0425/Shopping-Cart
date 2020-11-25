@@ -8,6 +8,7 @@ import co.com.luisf0425.shoppingcart.persistence.mapper.CartMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import javax.persistence.EntityManagerFactory
+import javax.transaction.Transactional
 
 @Repository
 class CartRepository : ICartRepository {
@@ -21,6 +22,7 @@ class CartRepository : ICartRepository {
     @Autowired
     private lateinit var mapper: CartMapper
 
+    @Transactional
     override fun save(cart: Cart) : Cart {
         val cartsSave = cartCrudRepository.save(Carts(null, 'P', null))
         cartsSave.products = mapper.toCarts(cart).products
@@ -39,6 +41,7 @@ class CartRepository : ICartRepository {
         carts.products?.removeIf { it.id?.productId == productId && it.id?.cartId == cartId }
         entityManager.merge(carts)
         entityManager.transaction.commit()
+        entityManager.close()
     }
 
     override fun update(cart: Cart): Cart {
@@ -50,12 +53,17 @@ class CartRepository : ICartRepository {
         cartFind.products?.forEach { it.id?.cartId = cart.id }
         entityManager.merge(cartFind)
         entityManager.transaction.commit()
+        entityManager.close()
         return cart
     }
 
     override fun updateState(cartId: Int) {
+        val entityManager = emf.createEntityManager()
+        entityManager.transaction.begin()
         val cartFind = cartCrudRepository.findById(cartId)
         cartFind.get().status = 'C'
-        cartCrudRepository.save(cartFind.get())
+        entityManager.merge(cartFind.get())
+        entityManager.transaction.commit()
+        entityManager.close()
     }
 }

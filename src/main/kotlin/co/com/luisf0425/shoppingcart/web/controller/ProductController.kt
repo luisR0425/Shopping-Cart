@@ -19,7 +19,7 @@ class ProductController {
     private lateinit var productService : ProductService
 
     @GetMapping("/all")
-    @ApiOperation("Lista de productos")
+    @ApiOperation("Lista los productos")
     @ApiResponse(code = 200, message = "OK")
     fun getAllProducts() : ResponseEntity<Iterable<Product>> =
             ResponseEntity(productService.getAllProducts(), HttpStatus.OK)
