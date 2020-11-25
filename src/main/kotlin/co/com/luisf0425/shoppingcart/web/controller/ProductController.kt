@@ -4,6 +4,7 @@ import co.com.luisf0425.shoppingcart.domain.dto.Product
 import co.com.luisf0425.shoppingcart.domain.service.ProductService
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiResponse
+import io.swagger.annotations.ApiResponses
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,7 +21,9 @@ class ProductController {
 
     @GetMapping("/all")
     @ApiOperation("Lista los productos")
-    @ApiResponse(code = 200, message = "OK")
+    @ApiResponses(value = [
+        ApiResponse(code = 200, message = "OK"),
+        ApiResponse(code = 500, message = "Error en el servidor, revisar log")])
     fun getAllProducts() : ResponseEntity<Iterable<Product>> =
             ResponseEntity(productService.getAllProducts(), HttpStatus.OK)
 }
