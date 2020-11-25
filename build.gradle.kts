@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "co.com.luisf0425"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
